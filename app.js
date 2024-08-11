@@ -10,8 +10,10 @@ app.use(cors());
 dotenv.config();
 
 const userRoutes = require('./routes/user.routes');
+const eventRoutes = require('./routes/event.routes');
 
 app.use("/users", userRoutes);
+app.use("/events", eventRoutes);
 
 const connectionString = process.env.MONGO_URI;
 const db = process.env.db;
