@@ -1,10 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const {createEvent} = require('../controllers/event.controller');
+const {createEvent, getEvent, updateEvent, deleteEvent} = require('../controllers/event.controller');
 const validateUser = require('../middlewares/validate.middleware');
 const authorizeUser = require('../middlewares/authorize.middleware');
 
 
 router.post('/create',validateUser ,authorizeUser, createEvent);
+router.get('/',validateUser ,authorizeUser, getEvent);
+router.put('/update/:id',validateUser ,authorizeUser, updateEvent);
+router.delete('/delete/:id',validateUser ,authorizeUser, deleteEvent);
 
 module.exports = router;
