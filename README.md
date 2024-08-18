@@ -3,7 +3,7 @@
 
 ## Overview
 
-This backend system is developed for a virtual event management platform, focusing on user registration, event scheduling, and participant management. It uses Node.js with Express.js and employs in-memory data structures to manage data. The system also features secure user authentication using bcrypt for password hashing and JWT for session management.
+This backend system is developed for a virtual event management platform, focusing on user registration, event scheduling, and participant management. It uses Node.js with Express.js and employs MongoDB database to manage data. The system also features secure user authentication using bcrypt for password hashing and JWT for session management.
 
 ## Features
 
@@ -67,7 +67,6 @@ npm run test
 - **Response**:
   - **201 Created**: User registered successfully.
   - **400 Bad Request**: Email already exists or invalid input.
-  - Sends a welcome email asynchronously upon successful registration.
 
 #### POST `/login`
 - **Description**: Logs in an existing user.
@@ -174,6 +173,7 @@ npm run test
   - **200 OK**: User registered for the event successfully.
   - **401 Unauthorized**: User is not authenticated.
   - **404 Not Found**: Event not found.
+  - Sends a welcome email asynchronously upon successful registration.
 
 ## MongoDB
 
