@@ -41,6 +41,27 @@ async function getAllEvents(req) {
     }
 }
 
+async function getAnParticularEvent(req) {
+    try {
+        const {id} = req.params;
+        const existingEvent = await eventModel.findById(id);
+        if(!existingEvent) {
+            return {
+                message: "Event not found",
+                status: 404,
+            };
+        }
+        return {
+            message: existingEvent,
+            status: 200,
+        };
+
+    } catch (error) {
+        throw new Error("ERROR FETCHING EVENTS!!! " + error);
+    }
+    
+}
+
 async function updateAnEvent(req) {
     try {
         const {id} = req.params;
@@ -81,5 +102,5 @@ async function deleteAnEvent(req) {
 }
 
 module.exports = {
-    createNewEvent, getAllEvents, updateAnEvent, deleteAnEvent
+    createNewEvent, getAllEvents, updateAnEvent, deleteAnEvent, getAnParticularEvent
 }

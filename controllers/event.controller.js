@@ -1,4 +1,4 @@
-const {createNewEvent, getAllEvents, updateAnEvent, deleteAnEvent} = require('../services/event.service');
+const {createNewEvent, getAllEvents, updateAnEvent, deleteAnEvent, getAnParticularEvent} = require('../services/event.service');
 
 async function createEvent(req, res) {
     try {
@@ -16,6 +16,19 @@ async function createEvent(req, res) {
 async function getEvent(req, res) {
     try {
         const {message, status} = await getAllEvents(req);
+        res.status(status).send({
+            message,
+          });
+    } catch (error) {
+        res.status(500).send({
+            message: "Internal Server Error " + error.message,
+          });
+    }
+}
+
+async function getAnEvent(req, res) {
+    try {
+        const {message, status} = await getAnParticularEvent(req);
         res.status(status).send({
             message,
           });
@@ -53,5 +66,5 @@ async function deleteEvent(req, res) {
 }
 
 module.exports = {
-    createEvent, getEvent, updateEvent, deleteEvent
+    createEvent, getEvent, updateEvent, deleteEvent, getAnEvent
 }
