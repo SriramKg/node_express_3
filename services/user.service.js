@@ -5,6 +5,12 @@ const userModel = require("../database/Models/user.model");
 async function registerNewUser(body) {
   try {
     const { username, email, password, roles, number, gender } = body;
+    if (!email) {
+      return {
+        message: "Email field is required",
+        status: 400,
+      };
+    }
 
     const existingUser = await userModel.findOne({ email });
     if (existingUser) {
