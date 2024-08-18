@@ -7,7 +7,7 @@ const oauth2 = google.auth.OAuth2;
 const oauth2Client = new oauth2({
     clientId: process.env.CLIENT_ID,
     clientSecret: process.env.CLIENT_SECRET,
-    redirectUri: "https://developers.google.com/oauthplayground",
+    redirectUri: process.env.REDIRECT_URI,
 });
 oauth2Client.setCredentials({
   refresh_token: process.env.REFRESH_TOKEN,
