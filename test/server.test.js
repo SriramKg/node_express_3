@@ -7,9 +7,17 @@ const mockUser = {
     username: 'Clark Kent',
     email: 'clark@superman.com',
     password: 'Krypt()n8',
-    roles: ['user'],
+    roles: ['admin'],
     number: '9876543210',
     gender: 'Male'
+};
+
+const mockEvent = {
+    eventtitle: 'Mongoose Workshop',
+    description: 'A workshop to learn about Mongoose and MongoDB.',
+    date: '2024-08-20',
+    location: 'Chennai',
+    participants: [],
 };
 
 let token = '';

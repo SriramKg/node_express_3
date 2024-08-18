@@ -23,8 +23,8 @@ This backend system is developed for a virtual event management platform, focusi
 
 1. Clone the repository:
     ```bash
-    git clone https://github.com/yourusername/event-management-backend.git
-    cd event-management-backend
+    git clone https://github.com/SriramKg/node_express_3.git
+    cd node_express_3
     ```
 2. Install dependencies:
     ```bash
@@ -32,7 +32,7 @@ This backend system is developed for a virtual event management platform, focusi
     ```
 3. Run the server:
     ```bash
-    npm start
+    npm run start
     ```
 
 ### Testing
@@ -48,7 +48,7 @@ npm run test
 
 | Method | Endpoint          | Description                                                   |
 |--------|-------------------|---------------------------------------------------------------|
-| POST   | `/register`       | Registers a new user. Requires a `name`, `email`, and `password`. |
+| POST   | `/register`       | Registers a new user. Requires a `username`, `email`, `password`, `roles`, `number` and `gender`. |
 | POST   | `/login`          | Logs in an existing user. Requires `email` and `password`. Returns a JWT. |
 
 #### POST `/register`
@@ -56,9 +56,12 @@ npm run test
 - **Request Body**:
   ```json
   {
-    "name": "John Doe",
+    "username": "John Doe",
     "email": "johndoe@example.com",
-    "password": "yourpassword"
+    "password": "yourpassword",
+    "roles" : ["user"],
+    "number" : 8015xxxxxxx,
+    "gender" : "Male"
   }
   ```
 - **Response**:
@@ -84,20 +87,21 @@ npm run test
 | Method | Endpoint              | Description                                                                 |
 |--------|-----------------------|-----------------------------------------------------------------------------|
 | GET    | `/events`             | Retrieves a list of all events.                                             |
-| POST   | `/events`             | Creates a new event. Requires authentication.                               |
+| POST   | `/events/create`      | Creates a new event. Requires authentication.                               |
 | GET    | `/events/:id`         | Retrieves details of a specific event by ID.                                |
-| PUT    | `/events/:id`         | Updates an existing event. Requires authentication and authorization.       |
-| DELETE | `/events/:id`         | Deletes an existing event. Requires authentication and authorization.       |
+| PUT    | `/events/update/:id`  | Updates an existing event. Requires authentication and authorization.       |
+| DELETE | `/events/delete/:id`  | Deletes an existing event. Requires authentication and authorization.       |
 
 #### POST `/events`
 - **Description**: Creates a new event. Only accessible by authenticated users (event organizers).
 - **Request Body**:
   ```json
   {
-    "title": "Tech Conference",
-    "date": "2024-09-01",
-    "time": "10:00 AM",
-    "description": "A conference on the latest in technology."
+    "eventtitle": "Mongoose Workshop",
+    "description": "A workshop to learn about Mongoose and MongoDB.",
+    "date": "2024-08-20",
+    "location": "Chennai",
+    "participants": []
   }
   ```
 - **Response**:
@@ -111,7 +115,7 @@ npm run test
   [
     {
       "id": "1",
-      "title": "Tech Conference",
+      "eventtitle": "Tech Conference",
       "date": "2024-09-01",
       "time": "10:00 AM",
       "description": "A conference on the latest in technology.",
@@ -127,7 +131,7 @@ npm run test
   ```json
   {
     "id": "1",
-    "title": "Tech Conference",
+    "eventtitle": "Tech Conference",
     "date": "2024-09-01",
     "time": "10:00 AM",
     "description": "A conference on the latest in technology.",
@@ -140,7 +144,7 @@ npm run test
 - **Request Body** (any field can be updated):
   ```json
   {
-    "title": "Updated Tech Conference",
+    "eventtitle": "Updated Tech Conference",
     "date": "2024-09-02",
     "time": "11:00 AM",
     "description": "Updated details for the tech conference."
@@ -171,9 +175,9 @@ npm run test
   - **401 Unauthorized**: User is not authenticated.
   - **404 Not Found**: Event not found.
 
-## In-Memory Data Structures
+## MongoDB
 
-The system uses in-memory data structures (arrays, objects) to manage users, events, and participant registrations.
+The system uses MongoDB database to manage users, events, and participant registrations.
 
 ### Example Data Structure
 
@@ -183,10 +187,12 @@ The system uses in-memory data structures (arrays, objects) to manage users, eve
   "users": [
     {
       "id": "1",
-      "name": "John Doe",
+      "username": "John Doe",
       "email": "johndoe@example.com",
-      "passwordHash": "hashedpassword",
-      "role": "organizer"
+      "password": "hashedpassword",
+      "role": ["admin"],
+      "number": "1234567890",
+      "gender": "Male",
     }
   ]
 }
@@ -198,7 +204,7 @@ The system uses in-memory data structures (arrays, objects) to manage users, eve
   "events": [
     {
       "id": "1",
-      "title": "Tech Conference",
+      "eventtitle": "Tech Conference",
       "date": "2024-09-01",
       "time": "10:00 AM",
       "description": "A conference on the latest in technology.",
